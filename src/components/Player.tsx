@@ -6,7 +6,6 @@ export type Player = {
   code: string,
   name: string,
   color: string,
-  isCurrent: boolean
 };
 
 type PlayerProps = {

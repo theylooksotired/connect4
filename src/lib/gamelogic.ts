@@ -1,5 +1,3 @@
-import Player, { type Player as PlayerData } from "./Player";
-
 /** INITIALIZE **/
 
 // Initialize a board with the given width and height
@@ -67,7 +65,7 @@ export function getCasesToCheck(row:number, col:number, boardWidth:number, board
 }
 
 // Remove a case, it's always tricky to deal with arrays in JS
-export function removeCase(cases:string[], itemCase:number):string[] {
+export function removeCase(cases:string[], itemCase:string):void {
   if (cases.indexOf(itemCase) >= 0) {
     cases.splice(cases.indexOf(itemCase), 1);
   }
@@ -75,7 +73,7 @@ export function removeCase(cases:string[], itemCase:number):string[] {
 
 // Check if the position is a winner or not
 export function checkPositionToWin(board:string[][], row:number, col:number, caseCheck:string):boolean {
-  let values = [];
+  let values: string[] = [];
   switch (caseCheck) {
     case 'a':
       values = [board[row][col], board[row][col - 1], board[row][col - 2], board[row][col - 3]];

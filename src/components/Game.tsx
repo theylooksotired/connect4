@@ -183,7 +183,7 @@ export default function Game() {
     return (
       <main className="winner">
         <span className="winner-celebrate"></span>
-        {(player.code) ?
+        {player ?
         <h1>{player.name} won!</h1>
         :
         <h1>{winner} won!</h1>}
@@ -227,7 +227,6 @@ export default function Game() {
         </div>
         <Board
           board={board}
-          currentPlayer={currentPlayer}
           players={players}
           playTurn={playTurn} />
       </div>
