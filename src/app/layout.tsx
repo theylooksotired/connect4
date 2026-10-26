@@ -4,7 +4,7 @@ import "./globals.scss";
 export const metadata: Metadata = {
   title: "Connect 4",
   icons: {
-    icon: "/icons/favicon.ico"
+    icon: "/connect4/icons/favicon.ico"
   }
 };
 
