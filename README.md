@@ -2,6 +2,17 @@
 
 This is a simple exercise to create the game Connect 4.
 
+## Basic proof of concept
+
+Here we have a very simple proof-of-concept using a board and 2 players.
+They can play by clicking on the headers of a table:
+
+![POC](https://test.leanomartinet.com/ressources/connect4_poc.png)
+
+There are no more interactions and it's just the basic code to make the game work.
+
+---
+
 ## Personal notes
 
 I have never played the game, so I had to start watching to https://www.youtube.com/watch?v=7q3eEXEGsCE 
