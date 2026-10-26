@@ -3,19 +3,21 @@
 import { useState, type SubmitEvent } from "react";
 
 export type Player = {
-    code: string,
-    name: string,
-    color: string
+  code: string,
+  name: string,
+  color: string,
+  isCurrent: boolean
 };
 
 type PlayerProps = {
   code: string,
   name: string,
   color: string;
+  isCurrent: boolean;
   onChange: (name: string, color: string) => void;
 };
 
-export default function Player({ code, name, color, onChange }: PlayerProps) {
+export default function Player({ code, name, color, isCurrent, onChange }: PlayerProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedName, setEditedName] = useState(name);
   const [editedColor, setEditedColor] = useState(color);
@@ -34,25 +36,32 @@ export default function Player({ code, name, color, onChange }: PlayerProps) {
 
   if (isEditing) {
     return (
-      <li>
+      <div className={"player player-form" + (isCurrent ? " player-current" : "")}>
         <form onSubmit={savePlayer}>
           <input
             value={editedName}
             onChange={(event) => setEditedName(event.target.value)}
           />
-          <input
+          <select
             value={editedColor}
             onChange={(event) => setEditedColor(event.target.value)}
-          />
+          >
+            <option value="red">Red</option>
+            <option value="yellow">Yellow</option>
+            <option value="green">Green</option>
+            <option value="blue">Blue</option>
+            <option value="orange">Orange</option>
+          </select>
           <button type="submit">Save</button>
         </form>
-      </li>
+      </div>
     );
   }
 
   return (
-    <li>
-      <span>{name} ({code})</span>
+    <div className={"player" + (isCurrent ? " player-current" : "")}>
+      <div className={"player-icon player-icon-" + color}></div>
+      <h2>{name} <span>({code})</span></h2>
       <button
         type="button"
         onClick={() => {
@@ -60,6 +69,6 @@ export default function Player({ code, name, color, onChange }: PlayerProps) {
           setEditedColor(color);
           setIsEditing(true);
         }}>Edit</button>
-    </li>
+    </div>
   );
 }

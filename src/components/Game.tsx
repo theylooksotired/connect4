@@ -22,6 +22,7 @@ export default function Game() {
   const [boardWidth, setBoardWidth] = useState(7);
   const [boardHeight, setBoardHeight] = useState(6);
   const [board, setBoard] = useState<string[][]>(() => initBoard(boardWidth, boardHeight));
+  const [winner, setWinner] = useState<string>("0");
 
   // Local storage states and function to save everything there
   const [appData, setAppData] = useState<AppData>(createInitialData);
@@ -51,7 +52,7 @@ export default function Game() {
     function checkWinnerWhenBoardChanges() {
       if (!dataLoaded) return;
       const winner = findWinnerBoard(board);
-      if (winner !== "0") console.log(winner);
+      if (winner != "0") setWinner(winner);
     },
     [board, dataLoaded],
   );
@@ -152,6 +153,7 @@ export default function Game() {
     setBoard(initBoard(boardWidth, boardHeight));
     setCurrentPlayer(players[0].code);
     setAppData(createInitialData());    
+    setWinner("0");
   }
 
   /** PLAYER Functions */
@@ -176,25 +178,59 @@ export default function Game() {
     });
   }
 
+  if (winner != "0") {
+    let player = players.find((item) => (item.code == winner));
+    return (
+      <main className="winner">
+        <span className="winner-celebrate"></span>
+        {(player.code) ?
+        <h1>{player.name} won!</h1>
+        :
+        <h1>{winner} won!</h1>}
+        <div className="actions">
+          <button className="action" onClick={() => resetGame()}>Restart</button>
+        </div>
+      </main>
+    )
+  }
+
   return (
     <main>
-      <h1>Connect 4</h1>
-      <button onClick={() => resetGame()}>Reset</button>
-      <button onClick={() => deleteLastStep()}>Rewind</button>
-      <div className="players">
-        {players.map((item, index) => (
-          <Player
-            key={"player_" + index}
-            code={item.code}
-            name={item.name}
-            color={item.color}
-            onChange={(name, color) => updatePlayerInformation(item.code, name, color)}
-          />
-        ))}
+      <div className="header">
+        <h1>connect<span>4....</span></h1>
+        <div className="actions">
+          {(gameSteps.length > 0) ?
+          <button className="action" onClick={() => deleteLastStep()}>Rewind</button>
+          : null}          
+          <button className="action" onClick={() => resetGame()}>Reset</button>
+        </div>
       </div>
-      <Board
-        board={board}
-        playTurn={playTurn} />
+      <div className="game">
+        <div className="players">
+          <div className="editorial-title">Instructions</div>
+          <div className="editorial-text">
+            <p>Click on a column letter to drop your disc.</p>
+            <p>The first player to connect four discs in a row, column, or diagonal <strong>wins!</strong></p>
+          </div>
+          <hr/>
+          <div className="editorial-title">Players</div>
+          {players.map((item, index) => (
+            <Player
+              key={"player_" + index}
+              code={item.code}
+              name={item.name}
+              color={item.color}
+              isCurrent={currentPlayer == item.code}
+              onChange={(name, color) => updatePlayerInformation(item.code, name, color)}
+            />
+          ))}
+        </div>
+        <Board
+          board={board}
+          currentPlayer={currentPlayer}
+          players={players}
+          playTurn={playTurn} />
+      </div>
     </main>
   );
 }

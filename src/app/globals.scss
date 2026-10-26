@@ -1,6 +1,268 @@
-@import "../../public/css/common.scss";
-@import "../../public/css/variables.scss";
+@import "../../public/css/_mixins.scss";
+@import "../../public/css/_variables.scss";
+@import "../../public/css/_normalize.scss";
+@import "../../public/css/_common.scss";
 
 body {
-  background: darken($white, 5%);
+  background: $white;
+}
+
+.header {
+  padding: 10px 20px;
+  background: rgba($black, 0.02);
+  border-bottom: 10px solid rgba($black, 0.05);
+  @include clearer();
+  h1 {
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    float: left;
+  }
+  .actions {
+    width: 50%;
+    float: right;
+    text-align: right;
+  }
+}
+
+.action {
+  padding: 5px 10px;
+  margin: 0 5px;
+  background: darken($colorAccent, 30%);
+  color: $white;
+  border: 1px solid rgba($black, 0.2);
+  font-weight: bold;
+  font-size: $fontSizeSmall;
+  cursor: pointer;
+  @include borderRadius(5px);
+  @include animate();
+  &:hover {
+    background: $colorMain;
+    color: $colorAccent;
+  }
+}
+
+h1 {
+  font-size: $fontSizeLarge;
+  color: $colorMain;
+  font-weight: bold;
+  span {
+    color: $colorAccent;
+  }
+}
+
+.game {
+  max-width: $sizeTablet;
+  margin: auto;
+  padding: 20px;
+  @include clearer();
+  .players {
+    width: 280px;
+    float: left;
+  }
+  .board {
+    width: calc(100% - 300px);
+    float: right;
+  }
+  @include mobile() {
+    .players,
+    .board {
+      width: 100%;
+      float: none;
+      margin: 0 0 20px;
+    }
+  }
+}
+
+.board {
+  table-layout: fixed;
+  border-spacing: 0;
+  background: $colorBlue;
+  color: $white;
+  th,
+  td {
+    border: 1px solid darken($colorBlue, 20%);
+    text-align: center;
+    margin: 0;
+  }
+  th {
+    span {
+      background: darken($colorBlue, 10%);
+      font-size: $fontSizeMedium;
+      display: block;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      &:hover {
+        background: lighten($colorBlue, 10%);
+      }
+    }
+  }
+}
+
+.cell {
+  padding: 10px;
+  min-height: 20px;
+  span {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: $white;
+    text-indent: -5000px;
+    overflow: hidden;
+    margin: auto;
+    @include borderRadius(30px);
+    @include mobile() {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  &.cell-red span {
+    background: $colorRed;
+  }
+  &.cell-yellow span {
+    background: $colorYellow;
+  }
+  &.cell-green span {
+    background: $colorGreen;
+  }
+  &.cell-blue span {
+    background: lighten($colorBlue, 20%);
+  }
+  &.cell-orange span {
+    background: $colorOrange;
+  }
+}
+
+.player {
+  padding: 10px;
+  background: rgba($black, 0.02);
+  border: 1px solid rgba($black, 0.05);
+  margin: 0 0 10px;
+  opacity: 0.4;
+  @include clearer();
+  @include borderRadius(5px);
+  &.player-current {
+    background: rgba($colorAccent, 0.05);
+    border: 1px solid rgba($colorAccent, 0.1);
+    opacity: 1;
+  }
+  .player-icon {
+    width: 20px;
+    height: 20px;
+    background: darken($white, 10%);
+    display: block;
+    float: left;
+    @include borderRadius(100%);
+    &.player-icon-red {
+      background: $colorRed;
+    }
+    &.player-icon-yellow {
+      background: $colorYellow;
+    }
+    &.player-icon-green {
+      background: $colorGreen;
+    }
+    &.player-icon-blue {
+      background: lighten($colorBlue, 20%);
+    }
+    &.player-icon-orange {
+      background: $colorOrange;
+    }
+  }
+  button {
+    width: 40px;
+    float: right;
+    padding: 5px;
+    margin: 0 5px;
+    background: darken($colorAccent, 30%);
+    color: $white;
+    border: 1px solid rgba($black, 0.2);
+    font-weight: bold;
+    font-size: $fontSizeTiny;
+    cursor: pointer;
+    @include borderRadius(5px);
+    @include animate();
+    &:hover {
+      background: $colorMain;
+      color: $colorAccent;
+    }
+  }
+  h2 {
+    width: calc(100% - 20px - 40px - 40px);
+    float: left;
+    padding: 0 10px;
+    margin: 0;
+    font-size: $fontSizeMedium;
+    span {
+      font-size: $fontSizeTiny;
+      font-weight: normal;
+      color: $colorAccent;
+    }
+  }
+}
+
+.player-form {
+  input,
+  select {
+    border: 1px solid rgba($black, 0.1);
+    margin: 0 0 5px;
+    display: block;
+    width: 100%;
+    padding: 5px;
+  }
+}
+
+.editorial-title {
+  padding: 10px 0 10px;
+  margin: 0 0 10px;
+  font-size: $fontSizeSmall;
+  text-transform: uppercase;
+  text-align: center;
+  color: $colorAccent;
+  position: relative;
+  font-weight: bold;
+  &:after {
+    width: 50px;
+    height: 3px;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: $colorMain;
+  }
+}
+.editorial-text {
+  p {
+    color: darken($white, 60%);
+    font-size: $fontSizeSmall;
+    padding: 0 0 20px;
+    margin: 0;
+    &:last-child {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+
+hr {
+  margin: 40px 0;
+  border: 1px solid rgba($black, 0.1);
+}
+
+.winner {
+  margin: 20px;
+  text-align: center;
+  .winner-celebrate {
+    display: block;
+    margin: 0 0 40px;
+    background-image: url('../../public/images/celebration.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    height: 250px;
+  }
 }
