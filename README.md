@@ -2,6 +2,16 @@
 
 This is a simple exercise to create the game Connect 4.
 
+## Improved the logic of the game
+
+There are some improvements on the game:
+
+- Added the whole Local Storage functionality, which has the list of players and steps to reproduce. So everytime the page is recharged, the last state will be recovered.
+- Added a RESET (or restart) button to put everything back to the initial state
+- Added a REWIND button to delete the last step and re-run the game
+- Created a separate Player that can have a name and a color
+
+
 ## Basic proof of concept
 
 Here we have a very simple proof-of-concept using a board and 2 players.
@@ -11,6 +21,8 @@ They can play by clicking on the headers of a table:
 
 There are no more interactions and it's just the basic code to make the game work.
 
+---
+---
 ---
 
 ## Personal notes

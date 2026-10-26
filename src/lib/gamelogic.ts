@@ -1,3 +1,5 @@
+import Player, { type Player as PlayerData } from "./Player";
+
 /** INITIALIZE **/
 
 // Initialize a board with the given width and height
@@ -12,16 +14,29 @@ export function initBoard(boardWidth:number, boardHeight:number):string[][] {
   return board;
 }
 
-// Iniatilze an array for the letters on top
-export function initLetters(boardWidth:number):string[] {
-  let boardHeadLetters = [];
-  for (let i = 0; i < boardWidth; i++) {
-    boardHeadLetters.push(String.fromCharCode(65 + i));
-  }
-  return boardHeadLetters;
+/** MAIN GAME LOGIC **/
+
+// Check if the column is clickable
+export function columnIsValid(board:string[][], indexColumn:number):boolean {
+  return (board[0][indexColumn] == "0")
 }
 
-/** MAIN GAME LOGIC **/
+// Find a winner
+export function findWinnerBoard(board:string[][]) {
+  let boardHeight = board.length;
+  let boardWidth = board[0].length;
+  for (let row = 0; row < boardHeight; row++) {
+      for (let col = 0; col < boardWidth; col++) {
+        let casesToCheck = getCasesToCheck(row, col, boardWidth, boardHeight);
+        for (let i = 0; i <= casesToCheck.length; i++) {
+          if (board[row][col] != "0" && checkPositionToWin(board, row, col, casesToCheck[i])) {
+            return board[row][col];
+          }
+        }
+      }
+    }
+    return "0";
+}
 
 // Get the cases to check
 // For better understanding the logic head to:

@@ -1,14 +1,17 @@
+import { Player } from "../components/Player";
+import type { GameStep } from "../components/Game";
+
 export type AppData = {
-  players: string[];
-  steps: any[];
+  players: Player[];
+  steps: GameStep[];
 };
 
 const storageKey = "connect4";
 
 export function createInitialData(): AppData {
   return {
-    players: [],
-    steps: []
+    players: <Player[]>[],
+    steps: <GameStep[]>[]
   };
 }
 
