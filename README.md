@@ -2,7 +2,7 @@
 
 This is a simple exercise to create the game **Connect 4**. The idea behind it is to showcase the use of React and the capabilities of it.
 
-The demo is in (https://test.leanomartinet.com/connect4/)
+The demo is in: https://test.leanomartinet.com/connect4/
 
 ## Certain technical considerations
 
